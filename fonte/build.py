@@ -72,7 +72,7 @@ def thumb(name, eager=False, caption=""):
     load = 'loading="eager"' if eager else 'loading="lazy" decoding="async"'
     cap = f"<figcaption>{caption}</figcaption>" if caption else ""
     return (f'<figure class="thumb"><picture><source srcset="{name}.webp" type="image/webp">'
-            f'<img src="{name}.jpg" alt="{ALT[name]}" width="320" height="320" {load}></picture>{cap}</figure>')
+            f'<img src="{name}.jpg" alt="{ALT[name]}" width="640" height="640" {load}></picture>{cap}</figure>')
 
 
 def photo(name, eager=False):
@@ -174,6 +174,7 @@ def layout(page, title, desc, body, wa_msg, crumb=None, faq=None, robots="index,
 <a class="skip" href="#conteudo">Pular para o conteúdo</a>
 
 <header class="site-header" data-header>
+  <div class="progress" data-progress aria-hidden="true"></div>
   <div class="wrap header-in">
     <a class="brand" href="index.html">{LOGO}<span class="brand-text">Academia</span></a>
     <nav class="nav" aria-label="Principal"><ul>{nav_items(page, skip_home=True)}</ul></nav>
@@ -359,12 +360,14 @@ def page_index():
     mods_html += "".join(mcard(i, n, d, h, t) for i, (n, d, h, t) in enumerate(mods, start=2))
     mods_html += (f'<a class="mcard mcard--cta reveal" href="{wa("Olá! Vi o site da AF Fitness e quero ajuda para escolher uma modalidade.")}" target="_blank" rel="noopener">'
                   f'<span class="mcard-body"><h3>Não sabe por onde começar?</h3><span class="mcard-d">Conte o seu objetivo e a gente indica a modalidade.</span><span class="mcard-go">Chamar no WhatsApp</span></span></a>')
+    faixa = "".join(f"<span>{n}</span>" for n, _ in SERVICOS[:7]) * 2
     gal = "".join(f'<div class="reveal">{thumb(t)}</div>' for t in ["af-salao", "af-aparelhos", "af-lutas", "af-kimono", "af-aerobico", "af-equipe"])
     body = f"""
 <section class="hero" aria-labelledby="hero-t">
+  <svg class="hero-arrow" viewBox="0 0 98 60" aria-hidden="true" focusable="false"><path d="M1 1h62.6L96.5 30 63.6 59H1z" pathLength="1"/></svg>
   <div class="wrap">
     <span class="eyebrow">Academia · Parque Dois Irmãos · Fortaleza</span>
-    <h1 id="hero-t">Academia no Parque Dois Irmãos: <em>musculação, lutas e funcional</em></h1>
+    <h1 id="hero-t"><span class="ln"><span>Academia no</span></span> <span class="ln"><span>Parque Dois Irmãos:</span></span> <span class="ln"><span><em>musculação, lutas</em></span></span> <span class="ln"><span><em>e funcional</em></span></span></h1>
     <p class="lead">Tudo num só lugar: treine musculação, faça aulas de artes marciais, funcional e aeróbico e conte com personal trainer e nutricionista. Em Fortaleza, na {RUA}.</p>
     <div class="actions">
       <a class="btn btn--yellow" href="{wa(msg)}" target="_blank" rel="noopener">{WA_ICON}Quero treinar na AF</a>
@@ -377,6 +380,8 @@ def page_index():
     </dl>
   </div>
 </section>
+
+<div class="ticker" aria-hidden="true"><div class="ticker-track">{faixa}</div></div>
 
 <section class="section" id="modalidades" aria-labelledby="mod-t">
   <div class="wrap">
