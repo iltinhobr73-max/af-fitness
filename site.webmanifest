@@ -1,0 +1,16 @@
+{
+ "name": "AF Fitness Academia",
+ "short_name": "AF Fitness",
+ "start_url": "./index.html",
+ "display": "browser",
+ "background_color": "#0d0d0e",
+ "theme_color": "#0d0d0e",
+ "lang": "pt-BR",
+ "icons": [
+  {
+   "src": "favicon.svg",
+   "sizes": "any",
+   "type": "image/svg+xml"
+  }
+ ]
+}
